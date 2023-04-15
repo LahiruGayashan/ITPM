@@ -1,128 +1,126 @@
-const Vehicle = require('../models/vehicleModel');
-const mongoose = require('mongoose');
+const Vehicle = require("../models/vehicleModel");
+const mongoose = require("mongoose");
 
 // Get all vehicles
 const getVehicles = async (req, res) => {
-    try {
-        const vehicles = await Vehicle.find();
-        res.status(200).json(vehicles);
-    } catch (error) {
-        res.status(500).json({
-        error: error.message,
-        });
-    }
-    }
+  try {
+    const vehicles = await Vehicle.find();
+    res.status(200).json(vehicles);
+  } catch (error) {
+    res.status(500).json({
+      error: error.message,
+    });
+  }
+};
 
 // Get a single vehicle
 const getVehicle = async (req, res) => {
-const { id } = req.params;
+  const { id } = req.params;
 
-if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({
-    error: 'Invalid vehicle ID',
+      error: "Invalid vehicle ID",
     });
-}
+  }
 
-try {
+  try {
     const vehicle = await Vehicle.findById(id);
     if (!vehicle) {
-    return res.status(404).json({
-        error: 'Vehicle not found',
-    });
+      return res.status(404).json({
+        error: "Vehicle not found",
+      });
     }
     res.status(200).json(vehicle);
-} catch (error) {
+  } catch (error) {
     res.status(500).json({
-    error: error.message,
+      error: error.message,
     });
-}
+  }
 };
 
 // Create a vehicle
 const createVehicle = async (req, res) => {
-const { vehicleNo, vehicleType, vehicleBook } = req.body;
+  const { vehicleNo, vehicleType, vehicleBook } = req.body;
 
-if (!vehicleNo || !vehicleType || !vehicleBook) {
+  if (!vehicleNo || !vehicleType || !vehicleBook) {
     return res.status(400).json({
-    error: 'Please provide required fields',
+      error: "Please provide required fields",
     });
-}
+  }
 
-try {
+  try {
     const vehicle = await Vehicle.create({
-    vehicleNo,
-    vehicleType,
-    vehicleBook,
+      vehicleNo,
+      vehicleType,
+      vehicleBook,
     });
     res.status(201).json(vehicle);
-}
-catch (error) {
+  } catch (error) {
     res.status(500).json({
-    error: error.message,
+      error: error.message,
     });
-}
+  }
 };
 
 // Delete a vehicle
 const deleteVehicle = async (req, res) => {
-const { id } = req.params;
+  const { id } = req.params;
 
-if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({
-    error: 'Invalid vehicle ID',
+      error: "Invalid vehicle ID",
     });
-}
+  }
 
-try {
+  try {
     const vehicle = await Vehicle.findByIdAndDelete(id);
     if (!vehicle) {
-    return res.status(404).json({
-        error: 'Vehicle not found',
-    });
+      return res.status(404).json({
+        error: "Vehicle not found",
+      });
     }
     res.status(200).json({
-    message: 'Vehicle deleted successfully',
+      message: "Vehicle deleted successfully",
     });
-}
-catch (error) {
+  } catch (error) {
     res.status(500).json({
-    error: error.message,
+      error: error.message,
     });
-}
+  }
 };
 
 // Update a vehicle
 const updateVehicle = async (req, res) => {
-const { id } = req.params;
+  const { id } = req.params;
 
-if (!mongoose.Types.ObjectId.isValid(id)) {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({
-    error: 'Invalid vehicle ID',
+      error: "Invalid vehicle ID",
     });
-}
+  }
 
-const vehicle = await Vehicle.findOneAndUpdate(
+  const vehicle = await Vehicle.findOneAndUpdate(
     {
-    _id: id,
+      _id: id,
     },
     {
       ...req.body,
-    },
-);
+    }
+  );
 
-if(!vehicle) {
+  if (!vehicle) {
     return res.status(404).json({
-        error: 'Vehicle not found',
+      error: "Vehicle not found",
     });
-}
-res.status(200).json(vehicle);
+  }
+  res.status(200).json(vehicle);
 };
 
 module.exports = {
-getVehicles,
-getVehicle,
-createVehicle,
-deleteVehicle,
-updateVehicle,
+  getVehicles,
+  getVehicle,
+  createVehicle,
+  deleteVehicle,
+  updateVehicle,
 };
 
