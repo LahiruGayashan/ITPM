@@ -1,4 +1,13 @@
 const express = require("express");
+const {
+  getVehicles,
+  getVehicle,
+  createVehicle,
+  deleteVehicle,
+  updateVehicle,
+  searchVehicles,
+} = require("../controllers/vehicleController");
+
 
 const router = express.Router();
 
@@ -12,7 +21,7 @@ router.get('/:id', (req, res) => {
   res.json({ mssg: "GET a vehicle" });
 });
 
-// POST a new vehicle
+// POST a new vehicle  
 router.post('/', (req, res) => {
   res.json({ mssg: "POST a new vehicle" });
 });
