@@ -35,3 +35,11 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
+  //AS an experiened data entry officer,process and enter information in to the database.
+  //track each request and communicate with the team if  there are issues.,
+  //Data entry into  the customer's database and also as A Tickting officer.
+  //I have done updating the tracking Operation Manual collaboarationg with partner box office
+  //manager on all operational issues,including refunds,promotional builds, discrepancies and 
+  //troubleshooting and all duties as assiged by  the ticketing supervisor and the director of 
+  //revenue management. I am able to contribute to the success of thecompany.
