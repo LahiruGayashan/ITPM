@@ -40,9 +40,18 @@ const getUser = async (req, res) => {
 
 // Create a user
 const createUser = async (req, res) => {
-  const { name, email, address, phone, district } = req.body;
+  const {
+    first_name,
+    last_name,
+    email,
+    address,
+    phone,
+    vehicle_Number,
+    Vehicle_Brand,
+    vehicleType,
+  } = req.body;
 
-  if (!name || !email || !phone || !address || !district) {
+  if (!first_name || !last_name || !email || !phone || !address) {
     return res.status(400).json({
       error: "Please provide required fields",
     });
@@ -50,11 +59,14 @@ const createUser = async (req, res) => {
 
   try {
     const user = await User.create({
-      name,
-      phone,
+      first_name,
+      last_name,
       email,
       address,
-      district,
+      phone,
+      vehicle_Number,
+      Vehicle_Brand,
+      vehicleType,
     });
     res.status(201).json(user);
   } catch (error) {

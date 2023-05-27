@@ -1,10 +1,13 @@
+import "./App.css";
+import AppRoutes from "./routes/app-routes";
 
-import './App.css';
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <div className="App">
-     <h1> Hello World </h1>
+      <Toaster position="top-center" reverseOrder={false} />
+      <AppRoutes />
     </div>
   );
 }

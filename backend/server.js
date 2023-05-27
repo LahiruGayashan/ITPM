@@ -1,9 +1,12 @@
 require("dotenv").config();
+const cors = require("cors");
 
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoutes = require("./routes/users");
-const vehicleRoutes =require("./routes/vehicles");
+const vehicleRoutes = require("./routes/vehicles");
+const oderRoutes = require("./routes/oders");
+const adminRoutes = require("./routes/admin");
 
 // express app
 const app = express();
@@ -11,15 +14,19 @@ const app = express();
 // middleware
 app.use(express.json());
 
+// cors
+app.use(cors());
+// routes
 app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
 
 // routes
-app.use('/api/users', userRoutes);
-app.use('/api/vehicles', vehicleRoutes);
-
+app.use("/api/users", userRoutes);
+app.use("/api/vehicles", vehicleRoutes);
+app.use("/api/oders", oderRoutes);
+app.use("/api/admin", adminRoutes);
 
 // connect to db
 mongoose
@@ -27,7 +34,7 @@ mongoose
   .then(() => {
     console.log("connected to database");
 
-   // listen to port
+    // listen to port
     app.listen(process.env.PORT, () => {
       console.log("listening for requests on port", process.env.PORT);
     });
@@ -35,11 +42,3 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
-  //AS an experiened data entry officer,process and enter information in to the database.
-  //track each request and communicate with the team if  there are issues.,
-  //Data entry into  the customer's database and also as A Tickting officer.
-  //I have done updating the tracking Operation Manual collaboarationg with partner box office
-  //manager on all operational issues,including refunds,promotional builds, discrepancies and 
-  //troubleshooting and all duties as assiged by  the ticketing supervisor and the director of 
-  //revenue management. I am able to contribute to the success of thecompany.
